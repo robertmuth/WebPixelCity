@@ -1,0 +1,13 @@
+name: pixelcity
+dependencies:
+  browser: any
+  sprintf: any
+  chronosgl: "2.1.2"
+  vector_math: any
+dev_dependencies:
+transformers:
+- $dart2js:
+    checked: true
+    csp: true
+    verbose: true
+    commandLineOptions: ['--trust-type-annotations', '--trust-primitives']

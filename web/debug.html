@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>PixelCity</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html"/>
+    <style>
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; //
+    background-size: cover;
+    background-image: url(pixelcity.png);
+    background-size: 100% 100%;
+}
+
+body {
+    font-family: sans-serif;
+}
+
+div.error {
+    z-index: 2;
+    opacity: 0.75;
+    position: absolute;
+    background-color: red;
+    color: white;
+    top: 20%;
+    bottom: 20%;
+    left: 10%;
+    right: 10%;
+    text-align: center;
+    vetical-align: middle;
+    align-content: center;
+    font-size: 300%;
+    justify-content: center;
+    align-items: center;
+    /* display:flex; */
+}
+
+div.about, div.config, div.performance, div.logo {
+    z-index: 2;
+    opacity: 0.5;
+    position: absolute;
+    background-color: #666;
+    color: white;
+}
+
+div.about {
+    padding: 1em;
+    top: 4%;
+    bottom: 4%;
+    left: 52%;
+    right: 4%;
+}
+
+div.config {
+    padding: 1em;
+    top: 4%;
+    bottom: 4%;
+    left: 4%;
+    right: 52%;
+}
+
+div.progress {
+    position: absolute;
+    left: 50%;
+    top: 50%; //
+    transform: translateX(-50%);
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    padding: .5em; // //
+    color: #f00;
+    background-color: #87CEFA;
+}
+
+div.performance {
+    padding: .5em;
+}
+
+div.logo {
+    padding: .5em;
+    background-color: rgba(0, 0, 0, 0);
+    color: white;
+    bottom: 2%;
+    right: 2%;
+}
+
+img.splash {
+    width: 100%;
+    height: 100%;
+}
+
+input[type=reset], button {
+    font-weight: bold;
+}
+
+input[type=text], input[type=number] {
+    width: 5em;
+}
+
+a {
+    color: inherit;
+}
+
+a:hover, a:visited, a:link, a:active {
+    text-decoration: none;
+    font-weight: bold;
+}
+
+
+
+
+    </style>
+    <script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-32123907-10', 'auto');
+ga('send', 'pageview');
+
+
+
+
+    </script>
+  </head>
+  <body>
+    <div class="about" hidden>
+      <h2>About</h2>
+      <pre>
+  Copyright (c) 2015 Robert Muth (robert@muth.org)
+
+  Based on Pixelcity by <a href='http://www.shamusyoung.com/'>Shamus Young</a>
+  Using Raymond Hulha's <a href='https://github.com/rhulha/ChronosGL'>ChronosGL Engine</a>
+  Implemented in <a href='https://www.dartlang.org'>Dart</a>
+  
+  More Screen Art at: <a href='http://art.muth.org'>http://art.muth.org</a>
+      </pre>
+      <table>
+        <tr>
+          <th>Key</th>
+          <th>Function</th>
+        </tr>
+        <tr>
+          <th>A</th>
+          <td>Toggle About</td>
+        </tr>
+        <tr>
+          <th>C</th>
+          <td>Toggle Config</td>
+        </tr>
+        <tr>
+          <th>P</th>
+          <td>Toggle Performance</td>
+        </tr>
+        <tr>
+          <th>R</th>
+          <td>Reset/Restart</td>
+        </tr>
+      </table>
+      <br/>
+      <button type="button" data-cmd="C+">Config</button>
+      &nbsp;
+      <button type="button" data-cmd="A-">Close</button>
+    </div>
+
+    <div class="config" hidden>
+      <h2>Config</h2>
+      <form>
+        <select id="preset">
+        </select>
+        <button type="button" data-cmd="X">Activate Preset</button>
+      </form>
+      <h3>Customize</h3>
+      <form>
+        <table>
+          <tr>
+            <td>
+              <select id="worldSize">
+                <option value="small">small</option>
+                <option value="medium">medium</option>
+                <option value="large">large</option>
+                <option value="xlarge">x-large</option>
+              </select>
+            </td>
+            <td>World size<sup>*</sup></td>
+          </tr>
+          <tr>
+            <td>
+              <select id="mode">
+                <option>night</option>
+                <option>day</option>
+                <option>shadow</option>
+                <option>wireframe</option>
+              </select>
+            </td>
+            <td>Mode<sup>*</sup></td>
+          </tr>
+          <tr>
+            <td><select id="cameraMode">
+              <!-- @@DEBUG -->
+              <option value="user">[DEBUG] User Controlled</option>
+              <option value="userOrbit">[DEBUG] User + Orbit</option>
+              <!-- @@END -->
+              <option value="orbitInner">Inner Orbit</option>
+              <option value="orbitOuter">Outer Orbit</option>
+              <option value="rotateNear">Near Rotate</option>
+              <option value="rotateFar">Far Rotate</option>
+              <option value="carFront">Move Front</option>
+              <option value="carLeft">Move Left</option>
+              <option value="carBack">Move Back</option>
+              <option value="carRight">Move Right</option>
+            </select></td>
+            <td>Camera Mode</td>
+          </tr>
+          <tr>
+            <td><input type="number" id="cameraHeight" min=30 max=1000
+                       value=40 step=1></td>
+            <td>Camera Height</td>
+          </tr>
+          <tr>
+            <td><input type="checkbox" id="cameraLevelChange"></td>
+            <td>Camera Changes Levels</td>
+          </tr>
+          <tr>
+            <td><input type="text" id="logo" value=""></td>
+            <td>Extra Building Logo<sup>*</sup></td>
+          </tr>
+          <tr>
+            <td><input type="number" id="fov" min=10 max=170 value=50
+                       step=1></td>
+            <td>Field of View</td>
+          </tr>
+          <tr>
+            <td><input type="number" id="fog" min=0.1 max=40 value=3.0
+                       step=0.1></td>
+            <td>Fog</td>
+          </tr>
+          <tr>
+            <td><input type="text" id="skyColor" value="random"></td>
+            <td>Sky color<sup>*</sup></td>
+          </tr>
+          <tr>
+            <td><input type="text" id="wireframeColor" value="random"></td>
+            <td>Wireframe color<sup>*</sup></td>
+          </tr>
+          <!--  @@DEBUG -->
+          <tr>
+            <td><input type="checkbox" id="showCars"></td>
+            <td>Show cars</td>
+          </tr>
+          <tr>
+            <td><input type="checkbox" id="showBuildings"></td>
+            <td>Show buildings</td>
+          </tr>
+          <tr>
+            <td><input type="checkbox" id="showSky"></td>
+            <td>Show Sky</td>
+          </tr>
+          <tr>
+            <td><input type="checkbox" id="cull"></td>
+            <td>Cull Triangles</td>
+          </tr>
+          <tr>
+            <td><input type="number" id="logLevel" value=0 step=1 short=1></td>
+            <td>LogLevel</td>
+          </tr>
+          <!-- @@END -->
+          <tr>
+            <td><input type="checkbox" id="hideAbout"></td>
+            <td>Hide About screen<sup>*</sup></td>
+          </tr>
+          <tr>
+            <td><input type="number" id="randomSeed" value=0 step=1
+                       short=1></td>
+            <td>Random Seed<sup>*</sup></td>
+          </tr>
+        </table>
+      </form>
+      <sup>* = Restart required to take effect</sup>
+
+      <p>
+        <button type="button" data-cmd="A">About</button>
+        &nbsp;
+        <button type="button" data-cmd="P">Frame Rate</button>
+        &nbsp;
+        <button type="button" data-cmd="R">Restart</button>
+        &nbsp;
+        <button type="button" data-cmd="C-">Close</button>
+      </p>
+    </div>
+
+    <div class="performance" hidden>
+      <pre id="fps"></pre>
+    </div>
+
+    <div class="progress" id="progress">
+      <h3 class>Initializing Pixel City. This may take a while.</h3>
+    </div>
+    <!--  img class="splash" src="pixelcity.jpg" alt="img" -->
+
+    <div class="logo">Pixel City</div>
+
+    <div class="error" id="error" hidden></div>
+
+    <div id=event>
+      <canvas id="area"></canvas>
+    </div>
+    <script type="application/dart" src="pixelcity.dart"></script>
+    <script src="packages/browser/dart.js"></script>
+  </body>
+</html>

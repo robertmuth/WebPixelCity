@@ -1,0 +1,116 @@
+<html>
+<head>
+    <title>Building</title>
+    <style>
+	body {
+		/* background:#f0f0f0;*/
+		margin:0;
+		overflow:hidden;
+	}
+
+    body {
+        font-family: sans-serif;
+    }
+
+    div.error {
+        z-index: 2;
+        opacity: 0.75;
+        position: absolute;
+        background-color: red;
+        color: white;
+        top: 20%;
+        bottom: 20%;
+        left: 10%;
+        right: 10%;
+        text-align: center;
+        vetical-align: middle;
+        align-content: center;
+        font-size: 300%;
+        justify-content: center;
+        align-items: center;
+        /* display:flex; */
+    }
+
+    div.about, div.config, div.performance, div.logo {
+        z-index: 2;
+        opacity: 0.5;
+        position: absolute;
+        background-color: #666;
+        color: white;
+    }
+
+    div.about {
+        padding: 1em;
+        top: 4%;
+        bottom: 4%;
+        left: 52%;
+        right: 4%;
+    }
+
+    div.config {
+        padding: 1em;
+        top: 4%;
+        bottom: 4%;
+        left: 4%;
+        right: 52%;
+    }
+
+    div.performance {
+        padding: .5em;
+    }
+
+   div.logo {
+        padding: .5em;
+        top: 90%;
+        rigth: 90%;
+        bottom: 4%;
+        left: 4%;
+    }
+
+    input[type=reset],
+    button {
+        font-weight: bold;
+    }
+
+    input[type=text], input[type=number] {
+        width: 5em;
+    }
+
+    a {
+        color: inherit;
+
+    }
+
+    a:hover, a:visited, a:link, a:active {
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+
+    </style>
+</head>
+<body>
+<div style="position:absolute; color: white">
+    <select id="buildingStyle">
+        <option>Modern</option>
+        <option>Blocky</option>
+        <option>Simple</option>
+        <option>Tower</option>
+    </select>
+    <select id="mode">
+        <option>day</option>
+        <option>shadow</option>
+        <option>night</option>
+        <option>wireframe</option>
+    </select>
+    <button id=refresh>Refresh</button>
+</div>
+
+
+<canvas id="area"></canvas>
+<script type="application/dart" src="building_test.dart"></script>
+<script src="packages/browser/dart.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+  	<meta charset="utf-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sky</title>
+  </head>
+
+  <body>
+   <div>
+       <select id="myselect">
+         <option>Facade1</option>
+         <option>Facade2</option>
+         <option>Facade3</option>
+       </select>
+       <button id="prev">Prev</button>
+       <button id="next">Next</button>
+   </div>
+   <h2 id="title"></h2>
+    <p style='background-color: blue' id="test"></p>
+    <script type="application/dart" src="sky_test.dart"></script>
+    <!-- for this next line to work, your pubspec.yaml file must have a dependency on 'browser' -->
+    <script src="packages/browser/dart.js"></script>
+  </body>
+</html>
